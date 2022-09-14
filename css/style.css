@@ -1,0 +1,87 @@
+*{
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(236, 239, 239);
+}
+
+.jumbotron{
+    height: 450px;
+    background-image: url(../img/rack.jpg);
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    border-radius: 0 0 50px 50px;
+    margin-bottom: 10px;
+}
+
+#seccionMuebles {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin: 0%;
+    padding: 2px;
+}
+
+#muebles{
+    display: flex;   
+}
+
+.divisor { 
+    font-family:   'Montserrat', sans-serif;
+    color: #000000ce;
+    text-align: center;
+}
+
+.card{
+    margin: 10px;
+    box-shadow: 7px 10px 17px #0008;
+}
+
+.card-img-top:hover{
+    transform: scale(1.03);
+    transition: all 0.3s;
+}
+.card-body{
+    padding-bottom: 15px;
+
+}
+
+.foto{
+    height: 30px;
+}
+
+#seccionMuebles {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin: 0%;
+    padding: 2px;
+}
+
+.carrito1 {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+} 
+
+.imgCarrito {
+    font-size: 30px;
+    color: #000000ce;
+    text-align: center;
+    padding: auto;
+}    
+
+.imgCarrito:hover{
+    transform: scale(1.08);
+    transition: all 0.3s;
+    color: #aa896d;
+        
+}
+
+.span1 {
+    margin-right: 20px;
+}
