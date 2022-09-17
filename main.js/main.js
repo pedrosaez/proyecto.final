@@ -56,7 +56,7 @@ function botonCarrito(){
     let contenido = `
     <button type="button" class="carrito1 border border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" position-relative"><i class="imgCarrito fa-solid fa-basket-shopping"></i><span class=" span1  start-100 translate-middle badge rounded-pill bg-danger">${total}</span>
 </button>
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+<div class="canvas1 offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="width: 600px;">
 <div class="offcanvas-header">
 <h5 id="offcanvasRightLabel">Carrito de compras</h5>
 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -83,14 +83,12 @@ function renderMueblesCarrito(){
         
         muebles.forEach(mueble => {
             mueblesEnCarrito +=  
-            `<tr>
-                    <td><img src="./img/${mueble.imagen}" class="imgVistaCarritoCompra" alt="${mueble.nombre}"></td>
-                    <td>${mueble.nombre}</td>
-                    <td>$${mueble.precio}</td>
-                </tr>
-                <tr>
-                    <td><a href = "#" class="btn btn-outline-dark ">-</a> ${muebles.cantidad} <a href = "#" class="btn btn-outline-dark ">+</a></td>
-                </tr>`;    
+                `<tr>
+                <td><img src="./img/${mueble.imagen}" class="imgVistaCarritoCompra" alt="${mueble.nombre}"> ${mueble.nombre}</td>
+                <td>$${mueble.precio}</td>
+                <td><a href = "#" class="btn btn-outline-dark ">-</a> ${muebles.cantidad} <a href = "#" class="btn btn-outline-dark ">+</a></td>
+            </tr>`;
+                    
         });
         
         mueblesEnCarrito += ` </table>`;
@@ -114,7 +112,7 @@ function renderMuebles(){
                 <div class="card-body">
                     <h5 class="card-title">${mueble.nombre}</h5>
                     <p class="card-text">$${mueble.precio}</p>
-                    <a href="#" class="agregarAlCarrito rounded-pill btn btn-outline-dark" title="Agregar" onclick="agregarMuebles(${mueble.id})" >Agregar al carrito</a>
+                    <a href="#" class="agregarAlCarrito rounded-pill btn btn-outline-dark" title="Agregar" onclick="agregarMuebles(${mueble.id});compraAprobada()">Agregar al carrito</a>
                 </div>
             </div>
         </div>`;
@@ -123,6 +121,18 @@ function renderMuebles(){
 
     document.getElementById("muebles").innerHTML = catalogo; 
 }
+
+function compraAprobada(){
+    Toastify({
+        text: "Producto agregado",
+        className: "info",
+        style: {
+        gravity: "top",
+        background: "#aa896d",
+        timer: 500
+    }
+    }).showToast();
+};
 
 guardarMueblesLs(muebles);
 renderMuebles(); 
