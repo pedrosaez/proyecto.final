@@ -31,6 +31,8 @@ function buscarMueble(id){
     return muebles.find(item => item.id === id);
 }
 
+// Agregar muebles que ya esten en el carrito
+
 function agregarMuebles(id){
     const mueblesCarrito = cargarMueblesCarrito();
     let pos = mueblesCarrito.findIndex(item=> item.id === id);
@@ -47,6 +49,8 @@ function agregarMuebles(id){
     botonCarrito();
 
 }
+
+// Eliminar muebles del carrito
 
 function eliminarMuebles(id){
     const mueblesCarrito = cargarMueblesCarrito();
@@ -66,10 +70,8 @@ function eliminarMuebles(id){
 // Render boton carrito
 
 function botonCarrito(){
-    const mueblesCarrito = cargarMueblesCarrito();
-    let total = mueblesCarrito.length;
     let contenido = `
-    <button type="button" class="carrito1 border border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" position-relative"><i class="imgCarrito fa-solid fa-basket-shopping"></i><span class=" span1  start-100 translate-middle badge rounded-pill bg-danger">${total}</span>
+    <button type="button" class="carrito1 border border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" position-relative"><i class="imgCarrito fa-solid fa-basket-shopping"></i><span class=" span1  start-100 translate-middle badge rounded-pill bg-danger">${mueblesTotal()}</span>
 </button>
 <div class="canvas1 offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="width: 600px;">
 <div class="offcanvas-header">
@@ -83,6 +85,14 @@ function botonCarrito(){
     `;
 
     document.getElementById("seccionMuebles").innerHTML = contenido;
+}
+
+// funcion para sumar todos los muebles del carrito
+
+function mueblesTotal(){
+    const mueblesCarrito = cargarMueblesCarrito();
+
+    return mueblesCarrito.reduce((acumulador, item) => acumulador + item.cantidad, 0);
 }
 
 // Render muebles en Carrito
@@ -101,17 +111,39 @@ function renderMueblesCarrito(){
                 <td><img src="./img/${mueble.imagen}" class="imgVistaCarritoCompra" alt="${mueble.nombre}"></td>
                 <td> ${mueble.nombre}</td>
                 <td>$${mueble.precio}</td>
-                <td><a href = "#" class="btn btn-outline-dark title="Eliminar">-</a> ${mueble.cantidad} <a href = "#" class="btn btn-outline-dark title="Agregar">+</a></td>
+                <td><button type="button" class="btn btn-outline-dark title="Eliminar" onclick="eliminarMuebles(${mueble.id});">-</button> ${mueble.cantidad} <button type="button" class="btn btn-outline-dark title="Agregar"  onclick="agregarMuebles(${mueble.id});">+</button></td>
                 <td>$${mueble.precio * mueble.cantidad}</td>
-                <td><a href = "#" class="btn btn-outline-danger" onclick="eliminarMuebles(${mueble.id});"><i class="fa-solid fa-trash"></i></a></td>
+                <td><button class="btn btn-outline-danger" onclick="eliminarMuebles(${mueble.id});"><i class="fa-solid fa-trash"></i></button></td>
             </tr>`; 
         });
-        
-        mueblesEnCarrito += ` </table>`;
+        mueblesEnCarrito += `<tr>
+        <td class= "text-end" colspan="6"><a href="#" class="btn btn-outline-danger" onclick="vaciarCarrito()">Vaciar Carrito</a></td>
+        </tr>
+        <tr>
+        <td colspan="4">Total a pagar:</td>
+        <td>$${TotalAPagar()}</td>
+        </tr>
+        </table>`;
     }
     
 
     return mueblesEnCarrito;
+}
+
+// Vaciar Carrito
+
+function vaciarCarrito(){
+    localStorage.removeItem("mueblesCarrito");
+    renderMueblesCarrito();
+    botonCarrito();
+}
+
+// Total
+
+function TotalAPagar(){
+    const mueblesCarrito = cargarMueblesCarrito();
+
+    return mueblesCarrito.reduce((acumulador, item) => acumulador + (item.cantidad * item.precio), 0);
 }
 
 // Render Sección muebles
