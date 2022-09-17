@@ -82,12 +82,15 @@ function renderMueblesCarrito(){
         mueblesEnCarrito += `<table class="table">`;
         
         muebles.forEach(mueble => {
-            mueblesEnCarrito +=  
-                `<tr>
-                <td><img src="./img/${mueble.imagen}" class="imgVistaCarritoCompra" alt="${mueble.nombre}"> ${mueble.nombre}</td>
+            mueblesEnCarrito += `<tr> 
+                <td><img src="./img/${mueble.imagen}" class="imgVistaCarritoCompra" alt="${mueble.nombre}"></td>
+                <td> ${mueble.nombre}</td>
                 <td>$${mueble.precio}</td>
                 <td><a href = "#" class="btn btn-outline-dark ">-</a> ${muebles.cantidad} <a href = "#" class="btn btn-outline-dark ">+</a></td>
+                <td>$${mueble.precio}</td>
+                <td><a href = "#" class="btn btn-outline-danger "><i class="fa-solid fa-trash"></i></a></td>
             </tr>`;
+                
                     
         });
         
