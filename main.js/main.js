@@ -39,11 +39,26 @@ function agregarMuebles(id){
         mueblesCarrito[pos].cantidad += 1;
     }else{
         const mueble = buscarMueble(id);
-        muebles.cantidad = 1;
+        mueble.cantidad = 1;
         mueblesCarrito.push(mueble);
     }
 
     guardarMueblesCarrito(mueblesCarrito);
+    botonCarrito();
+
+}
+
+function eliminarMuebles(id){
+    const mueblesCarrito = cargarMueblesCarrito();
+    let pos = mueblesCarrito.findIndex(item=> item.id === id);
+    mueblesCarrito[pos].cantidad -= 1;
+
+    if( mueblesCarrito[pos].cantidad == 0){
+        mueblesCarrito.splice(pos, 1);
+    }
+
+    guardarMueblesCarrito(mueblesCarrito);
+    renderMueblesCarrito();
     botonCarrito();
 
 }
@@ -77,7 +92,7 @@ function renderMueblesCarrito(){
     let mueblesEnCarrito = "";
 
     if(muebles.length == 0){
-        mueblesEnCarrito = `<div class="alert alert-secondary" role="alert">No hay productos en el carrito!</div>`;
+        mueblesEnCarrito = `<div class="alert alert-secondary" text-center role="alert">No hay productos en el carrito!</div>`;
     }else{
         mueblesEnCarrito += `<table class="table">`;
         
@@ -86,12 +101,10 @@ function renderMueblesCarrito(){
                 <td><img src="./img/${mueble.imagen}" class="imgVistaCarritoCompra" alt="${mueble.nombre}"></td>
                 <td> ${mueble.nombre}</td>
                 <td>$${mueble.precio}</td>
-                <td><a href = "#" class="btn btn-outline-dark ">-</a> ${muebles.cantidad} <a href = "#" class="btn btn-outline-dark ">+</a></td>
-                <td>$${mueble.precio}</td>
-                <td><a href = "#" class="btn btn-outline-danger "><i class="fa-solid fa-trash"></i></a></td>
-            </tr>`;
-                
-                    
+                <td><a href = "#" class="btn btn-outline-dark title="Eliminar">-</a> ${mueble.cantidad} <a href = "#" class="btn btn-outline-dark title="Agregar">+</a></td>
+                <td>$${mueble.precio * mueble.cantidad}</td>
+                <td><a href = "#" class="btn btn-outline-danger" onclick="eliminarMuebles(${mueble.id});"><i class="fa-solid fa-trash"></i></a></td>
+            </tr>`; 
         });
         
         mueblesEnCarrito += ` </table>`;
