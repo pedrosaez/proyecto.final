@@ -123,11 +123,26 @@ function renderMueblesCarrito(){
         <td colspan="4">Total a pagar:</td>
         <td>$${TotalAPagar()}</td>
         </tr>
+        <tr>
+        <td class= "text-end" colspan="6"><a href="#" class="btn btn-outline-success" onclick="alerta()">Finalizar compra</a></td>
+        </tr>
         </table>`;
     }
     
 
     return mueblesEnCarrito;
+}
+
+// Alerta compra finalizada
+
+function alerta(){
+    Swal.fire({
+        position: 'top-center',
+        icon: 'success',
+        title: 'Gracias por tu compra!',
+        showConfirmButton: false,
+        timer: 1000
+    })
 }
 
 // Vaciar Carrito
